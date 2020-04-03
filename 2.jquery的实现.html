@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>
+        <input type="text" id="kuang">
+        <button id="btn">添加</button>
+    </p>
+    <ul id="list">
+        <li>苹果<button>删除</button></li>
+        <li>鸭梨<button>删除</button></li>
+        <li>西瓜<button>删除</button></li>
+    </ul>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script> 
+    $('#btn').click(function(){
+        var nr=$('#kuang').val();
+        $('<li>'+nr+'<button>删除</button></li>').appendTo('#list');
+            $('#kuang').val('');
+            $('#kuang').focus();  //字段获得焦点
+    });
+      // 事件委托
+     $('#list').delegate('button', 'click', function () {
+            // 删除元素，this是用户点击的按钮，让它的爹li没有
+            $(this).parent().remove();
+        });
+  </script>
+</body>
+</html>

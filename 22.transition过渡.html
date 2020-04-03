@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background-color: gold;
+            transition: all 3s ease 0s;
+            transform: rotate(360deg);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <button class="btn">按我</button>
+    <script>
+        var box=document.querySelector('.box');
+        var btn=document.querySelector('.btn');
+        btn.onclick=function(){
+            box.style.width='400px';
+            box.style.backgroundColor='pink';
+            
+        }
+    </script>
+</body>
+</html>

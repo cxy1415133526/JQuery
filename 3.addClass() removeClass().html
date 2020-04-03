@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box ul {
+
+            list-style: none;
+            width: 300px;
+            height: 20px;
+        }
+
+        .box ul li {
+            float: left;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: gray;
+            margin-left: 10px;
+        }
+
+        ul li.cur {
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <ul>
+            <li class="cur"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+       
+        $('.box ul li').animate(function () {
+           var idx=$(this).index();
+         $('.box ul li').eq(idx).addClass('cur').siblings().removeClass('cur');
+           
+
+        });   
+        
+        
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{margin: 0;padding: 0;}
+        .box{
+            width: 100px;
+            height: 100px;
+            border: 1px solid #000;
+            /* 让盒子动画，这里得绝对定位 */
+            position: relative;   
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="box">
+        
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $('.box').animate({'left':800},1000,function(){
+            
+            $(this).css('background','red').hide(1000);
+        })
+        $('.box').html('我是盒子');
+    </script>
+</body>
+</html>

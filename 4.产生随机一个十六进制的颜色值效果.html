@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ccc;
+            background: gold;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <button id="btn">按我变色</button>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+
+       $('#btn').click(function () {
+              
+            $('#box').css('background', getColor());
+        })
+        function getColor() {
+            var arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F'];
+            var str = '#';
+            //循环6次，随机生成一个色号
+            for (var i = 0; i < 6; i++) {
+                var n = parseInt(Math.random() * 16);
+                str += arr[n];
+            }
+            return str;
+        }
+    </script>
+</body>
+
+</html>

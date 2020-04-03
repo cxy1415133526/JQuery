@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{margin: 0;padding: 0;}
+        .carousel{
+            width: 500px;
+            height: 500px;
+            border: 1px solid #ccc;
+            margin: 50px auto;
+            position: relative;
+        }
+        img{
+            width: 500px;
+            height: 500px;
+        }
+        .carousel ul li{
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            list-style: none;
+        }
+        .carousel ul li.no0{
+            display: block;
+        }
+        .carousel .btn{
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            top:50%;
+            margin-top: -25px;
+            border-radius: 50%;
+            background: gold;
+        }
+        .carousel .leftbtn{
+            left: 0;
+        }
+        .carousel .rightbtn{
+            right: 0;
+        }
+        .carousel ol{
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 200px;
+            height: 20px;
+            list-style: none;
+        }
+        .carousel ol li{
+            float: left;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+            line-height: 20px;
+            background-color: rgba(165, 142, 14, 0.63);
+        }
+        .carousel ol li.cur{
+            background:rgba(190, 164, 13, 0.836);
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel" id="carousel">
+        <ul>
+            <li class="no0">
+                <img src="images/numbers/0.png" alt="">
+            </li>
+            <li>
+                <img src="images/numbers/1.png" alt="">
+            </li>
+            <li>
+                <img src="images/numbers/2.png" alt="">
+            </li>
+            <li>
+                <img src="images/numbers/3.png" alt="">
+            </li>
+        </ul>
+        <a href="javascript:" id="leftbtn" class="leftbtn btn"></a>
+        <a href="javascript:" id="rightbtn" class="rightbtn btn"></a>
+        <ol>
+            <li class="cur"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ol>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        var idx=0;
+        //如果li正在动画做动画，则什么都不做
+        $('#rightbtn').click(function(){
+            if($('#carousel ul li').is(':animated')){
+                return;
+            }
+            $('#carousel ul li').eq(idx).fadeOut(400);          //第一张图片淡出 eq:序号
+            idx++;
+            if(idx>3){
+                idx=0;
+            }
+            $('#carousel ul li').eq(idx).fadeIn(400);
+        });
+        
+        $('#leftbtn').click(function(){
+            $('#carousel ul li').eq(idx).fadeOut(400);
+            idx--;
+            if(idx<0){
+                idx=3;
+            }
+            $('#carousel ul li').eq(idx).fadeIn(400);
+        })
+        // 小圆点做的事情
+        $('#carousel ol li').click(function(){
+            // 当前的图淡出
+            // 让idx号li淡出，eq表示序号（从0开始，英语equal的意思），fadeOut表示淡出
+            $('#carousel ul li').eq(idx).fadeOut(400);
+              // 点击的小圆点序号。让信号量变成小圆点的下标
+            idx=$(this).index();
+            $('#carousel ul li').eq(idx).fadeIn(400);
+            $('#carousel ol li').eq(idx).addClass('cur').siblings().removeClass().fadeIn(400);
+        })
+         //添加定时器 自动播放
+         var lock=true;
+         setInterval(function(){
+             // 如果锁是开着的，那么就触发右按钮
+            if(lock){
+             $('#rightbtn').trigger('click'); 
+            }  //触发右按钮 自动每2s播放
+         }, 2000);
+        $('#carousel').mouseenter(function(){
+            lock=false;        //鼠标进入上锁
+        })
+        $('#carousel').mouseleave(function(){
+            lock=true;        //鼠标离开大盒子，锁就打开，自动播放
+        })
+    </script>
+</body>
+</html>

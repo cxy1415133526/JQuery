@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   <style>
+      h1{  
+           font-size: 10px;
+           text-align: center;
+       }
+   </style>
+</head>
+<body>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+     $(function(){
+        $('h1').css({
+            'width':200,
+            'height':50,
+            'margin-left':'50px',
+            'background':'yellow',
+            'color':'white',
+            'font-size':'+=20'
+            
+        })
+        var li=$('li');
+        li.each(function(n){
+            $(this).css('fontSize',30-n*2+'px');
+        })
+    alert($('h1').css('font-size')); //得到的是最终计算之后的值
+    var h1=$(h1);
+    h1.css('color','red');
+  
+})
+    </script>
+    <h1> 宋词排行榜</h1>
+    <ol>
+        <li>苏轼《念如娇·赤壁怀古》</li>
+        <li>苏轼《念如娇·赤壁怀古》</li>
+        <li>苏轼《念如娇·赤壁怀古》</li>
+        <li>苏轼《念如娇·赤壁怀古》</li>
+        <li>苏轼《念如娇·赤壁怀古》</li>
+        <li>苏轼《念如娇·赤壁怀古》</li>
+        <li>苏轼《念如娇·赤壁怀古》</li>
+        <li>苏轼《念如娇·赤壁怀古》</li>
+        <li>苏轼《念如娇·赤壁怀古》</li>
+    </ol>
+</body>
+</html>

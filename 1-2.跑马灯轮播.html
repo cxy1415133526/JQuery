@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .carousel {
+            width: 500px;
+            height: 500px;
+            border: 1px solid #ccc;
+            margin: 40px auto;
+            position: relative;
+            /* overflow: hidden; */
+        }
+
+        .carousel ul {
+            list-style: none;
+            width: 20000px;
+            position: relative;
+        }
+
+        .carousel ul li {
+            float: left;
+        }
+        
+        .carousel img {
+            width: 500px;
+            height: 500px;
+        }
+
+        .carousel .btn {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: rgba(206, 178, 19, 0.808);
+            border-radius: 50%;
+            margin-top: -25px;
+            top: 50%;
+        }
+
+        .carousel .leftbtn {
+            left: 10px;
+        }
+
+        .carousel .rightbtn {
+            right: 10px;
+        }
+
+        .carousel ol {
+            position: absolute;
+            bottom: 20px;
+            right: 10px;
+            list-style: none;
+            width: 200px;
+            height: 20px;
+        }
+
+        .carousel ol li {
+            float: left;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-left: 10px;
+            background-color: rgba(218, 165, 32, 0.87);
+            cursor: pointer;
+        }
+
+        .carousel ol li.cur {
+            background-color: orangered;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="carousel" id="carousel">
+        <ul>
+            <li class="no0"><img src="images/numbers/0.png" alt=""></li>
+            <li><img src="images/numbers/1.png" alt=""></li>
+            <li><img src="images/numbers/2.png" alt=""></li>
+            <li><img src="images/numbers/3.png" alt=""></li>
+        </ul>
+        <a href="javascript:" class="leftbtn btn" id="leftbtn"></a>
+        <a href="javascript:" class="rightbtn btn" id="rightbtn"></a>
+        <ol>
+            <li class="cur"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ol>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        // 克隆第一个li，追加到最后
+        $('#carousel ul li').eq(0).clone().appendTo($('#carousel ul'));
+        // 信号量，改变信号量来改变图
+        var idx = 0;
+        $('#rightbtn').click(function () {
+            // 当前的图片正在动画则什么都不做
+            if ($('#carousel ul').is(':animated')) {
+                return;
+            }
+            idx++;
+            $('#carousel ul').animate({ 'left': -500 * idx }, 400, function () {
+                // 回调函数是每次动画执行结束，做的事情
+                if (idx > 3) {
+                    // 瞬间拉回去
+                    idx = 0;
+                    $('#carousel ul').css('left', 0);
+                }
+            });
+            $('#carousel ol li').eq(idx % 4).addClass('cur').siblings().removeClass('cur');
+        });
+        $('#leftbtn').click(function () {
+            if ($('#carousel ul').is(':animated')) {
+                return;
+            }
+             // 一上来就要考虑猫腻
+            if (idx == 0) {
+                   // 如果idx现在是0，那么就变为4，就是变为猫腻那张图
+                idx = 4;
+                // css是瞬移，移动到最后一张图
+                $('#carousel ul').css('left', -500 * 4);
+            }
+            idx--;
+            $('#carousel ul').animate({ 'left': -500 * idx }, 400);
+            $('#carousel ol li').eq(idx % 4).addClass('cur').siblings().removeClass('cur')
+        });
+        smallBall();
+
+//  *******************点击小圆点做的事情***********************************************
+        function smallBall() {
+            $('#carousel ol li').click(function () {
+                //让信号量等于小圆点的序号.表示你点击小圆点来拉动图,然后给小圆点加cur
+                idx = $(this).index();
+                $('#carousel ul').animate({ 'left': -500 * idx }, 400);
+                // $('#carousel ol li').eq(idx).addClass('cur').siblings().removeClass('cur');
+                // 或者这样写
+                $(this).addClass('cur').siblings().removeClass('cur');
+
+            })
+        }
+
+// *********************定时器*************************************************************
+        var lock=true;
+        setInterval(function(){
+            if(lock){
+                $('#rightbtn').trigger('click');
+            }
+        },2000);
+        $('#carousel').mouseenter(function(){
+            lock=false;
+        });
+        $('#carousel').mouseleave(function(){
+            lock=true;
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{margin: 0;
+         padding: 0;
+        }
+        .carousel{
+            width: 500px;
+            height: 500px;
+            position: relative;
+            border: 1px solid #000;
+            margin: 100px auto;
+        }
+        .carousel ul{
+            list-style: none;
+          
+        }
+        .carousel ul li{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 500px;
+            height: 500px;
+            display: none;
+        }
+        .carousel ul li.no0{
+            display: block;
+        }
+        .carousel ul li img{
+            width: 500px;
+            height: 500px;
+        }
+        .carousel .btn{
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 217, 0, 0.623);
+            border-radius: 50%;
+            position: absolute;
+            top:50%;
+            margin-top: -25px;
+
+        }
+        .leftbtn{
+            left:10px;
+        }
+        .rightbtn{
+            right:10px;
+        }
+        .carousel ol{
+            list-style: none;
+            width: 90px;
+            height: 10px;
+            position: absolute;
+            left: 50%;
+            bottom: 10px;
+            margin-left: -45px;
+           
+        }
+        .carousel ol li{
+            width: 10px;
+            height: 10px;
+            float: left;
+            margin-right: 10px;
+            background-color: rgb(197, 130, 5);
+            cursor: pointer;
+        }
+        .carousel ol li.cur{
+            background-color: rgb(255, 0, 0);
+        }
+        .carousel ol li.last{
+            margin-right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="carousel" id="carousel">
+        <ul>
+            <li class="no0"><img src="images/numbers/0.png" alt=""></li>
+            <li><img src="images/numbers/1.png" alt=""></li>
+            <li><img src="images/numbers/2.png" alt=""></li>
+            <li><img src="images/numbers/3.png" alt=""></li>
+            <li><img src="images/numbers/2.png" alt=""></li>
+        </ul>
+        <div class="leftbtn btn" id="leftbtn"></div>
+        <div class="rightbtn btn" id="rightbtn"></div>
+        <ol>
+            <li class="cur"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li class="last"></li>
+        </ol>
+    </div>
+
+
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+    var idx=0;
+    var lis=document.querySelectorAll('#carousel ul li')
+    $('#rightbtn').click(function(){
+        $('#carousel ul li').eq(idx).stop(true).fadeOut(600);
+        idx++;
+        if(idx>lis.length-1){  
+            idx=0;
+        }
+        $('#carousel ul li').eq(idx).stop(true).fadeIn(600);
+        $('#carousel ol li').eq(idx).addClass('cur').siblings().removeClass('cur');
+    });
+    $('#leftbtn').click(function(){
+        $('#carousel ul li').stop(true).eq(idx).fadeOut(600);
+        idx--;
+        if(idx<0){  
+            idx=lis.length-1;
+        }
+        $('#carousel ul li').eq(idx).stop(true).fadeIn(600);
+        $('#carousel ol li').eq(idx).addClass('cur').siblings().removeClass('cur');
+    });
+   setInterval(function(){
+       if(!rock) return;
+    $('#rightbtn').trigger('click');
+   },1000);
+
+   //点击小圆点的情况
+   $('#carousel ol li').click(function(){
+       $('#carousel ul li').eq(idx).fadeOut(600);
+       idx=$(this).index();
+       $(this).addClass('cur').siblings().removeClass('cur');
+   })
+   var rock=true;
+   $('#carousel').mouseenter(function(){
+       rock=false;
+   });
+   $('#carousel').mouseleave(function(){
+       rock=true;
+   });
+    </script>
+
+
+</body>
+
+</html>
